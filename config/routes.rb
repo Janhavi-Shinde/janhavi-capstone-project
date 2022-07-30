@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :sessions
   resources :spheres_goals
   resources :goals
   resources :spheres

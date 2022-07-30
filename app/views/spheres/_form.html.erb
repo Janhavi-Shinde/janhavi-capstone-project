@@ -1,0 +1,37 @@
+<%= form_with(model: sphere) do |form| %>
+  <% if sphere.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sphere.errors.count, "error") %> prohibited this sphere from being saved:</h2>
+
+      <ul>
+        <% sphere.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :goal_aim %>
+    <%= form.number_field :goal_aim %>
+  </div>
+
+  <div class="field">
+    <%= form.label :aim_achieved %>
+    <%= form.check_box :aim_achieved %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

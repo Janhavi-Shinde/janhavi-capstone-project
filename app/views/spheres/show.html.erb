@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @sphere.title %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sphere.user_id %>
+</p>
+
+<p>
+  <strong>Goal aim:</strong>
+  <%= @sphere.goal_aim %>
+</p>
+
+<p>
+  <strong>Aim achieved:</strong>
+  <%= @sphere.aim_achieved %>
+</p>
+
+<%= link_to 'Edit', edit_sphere_path(@sphere) %> |
+<%= link_to 'Back', spheres_path %>

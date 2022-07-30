@@ -1,0 +1,2 @@
+class SpheresGoal < ApplicationRecord
+end

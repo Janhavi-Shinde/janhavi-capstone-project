@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Spheres Goals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Goal</th>
+      <th>Sphere</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @spheres_goals.each do |spheres_goal| %>
+      <tr>
+        <td><%= spheres_goal.goal_id %></td>
+        <td><%= spheres_goal.sphere_id %></td>
+        <td><%= link_to 'Show', spheres_goal %></td>
+        <td><%= link_to 'Edit', edit_spheres_goal_path(spheres_goal) %></td>
+        <td><%= link_to 'Destroy', spheres_goal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Spheres Goal', new_spheres_goal_path %>

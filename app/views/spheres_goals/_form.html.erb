@@ -1,0 +1,27 @@
+<%= form_with(model: spheres_goal) do |form| %>
+  <% if spheres_goal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(spheres_goal.errors.count, "error") %> prohibited this spheres_goal from being saved:</h2>
+
+      <ul>
+        <% spheres_goal.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :goal_id %>
+    <%= form.number_field :goal_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sphere_id %>
+    <%= form.number_field :sphere_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

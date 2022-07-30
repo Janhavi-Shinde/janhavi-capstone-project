@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Goal:</strong>
+  <%= @spheres_goal.goal_id %>
+</p>
+
+<p>
+  <strong>Sphere:</strong>
+  <%= @spheres_goal.sphere_id %>
+</p>
+
+<%= link_to 'Edit', edit_spheres_goal_path(@spheres_goal) %> |
+<%= link_to 'Back', spheres_goals_path %>

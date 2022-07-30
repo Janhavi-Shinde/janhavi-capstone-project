@@ -1,5 +1,20 @@
-<h1>New Sphere</h1>
+<% if @sphere.errors.any? %>
+  <div id="error_explanation">
+    <h2>There were some errors:</h2>
+    <ul>
+      <% @sphere.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
-<%= render 'form', sphere: @sphere %>
+<h1> Create a New Sphere! </h1>
 
-<%= link_to 'Back', spheres_path %>
+<%= form_for @sphere do |f|%>
+    <label>Sphere title:</label><br>
+    <%= f.text_field :title %><br>
+    <%= f.hidden_field :user_id %>
+     <%= f.submit "Create Sphere" %>
+    
+  <% end %>

@@ -1,0 +1,40 @@
+
+<h1>Sign into SphereSorter! </h1>
+
+<p id="notice"> <%= notice %> </p>
+
+<%= form_tag ({controller: 'sessions', action: 'create', method: 'post'}) do %>
+    <label> Email: </label>
+    <input name="email" type="text" id="email"> <br>
+
+    <label> Password: </label>
+    <input name="password" type='text' id='password'> <br>
+    <input type="submit" value='sign in'>
+
+
+    
+
+  <% end %>
+  
+
+  <h2> OR </h2>
+  <p> Create a New account! </p>
+  <%= form_tag ({controller: 'users', action: 'create', method: 'post'}) do %>
+    <label> Name </label> <br>
+    <%= text_field_tag :"user[name]" %><br>
+    <br>
+    <label> Email: </label><br>
+    <%= text_field_tag :"user[email]" %><br>
+    <label> Password </label><br>
+    <%= text_field_tag :"user[password]" %><br>
+    <br>
+
+    <label> Password Confirmation </label><br>
+     <%= password_field_tag :"user[password_confirmation]" %> <br> 
+
+    <%= submit_tag "Create User" %>
+    
+
+  <% end %>
+  
+

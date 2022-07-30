@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
+  root 'sessions#new'
   resources :sessions
-  resources :spheres_goals
+  
   resources :goals
   resources :spheres
-  resources :users
+
+  resources :users do
+    resources :spheres 
+  end
+  resources :sessions, only: [:new, :create, :show]
+  delete '/signout', to: 'sessions#destroy'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -1,34 +1,19 @@
-<p id="notice"><%= notice %></p>
+<h1> <%=" Welcome #{@user.name}!"%> </h1>
+<% if @user.provider %>
+<p> <%= " Authenticated by #{@user.provider.capitalize}, thanks to OmniAuth!" %> </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<% end %>
+<h2> These are your spheres: <h2>
+<ul>
+    <% @user.spheres.each do |sphere| %>
+        <li> 
+            <%= link_to sphere.title, user_sphere_path(@user, sphere) %> <span/> <br> 
+            <%= link_to "(Edit #{sphere.title})", edit_sphere_path(sphere) %>
+            <%= button_to "Delete #{sphere.title}", sphere_path(sphere), method: :delete %>
+        </li>
+    <% end %>
+</ul>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
-
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
-
-<p>
-  <strong>Uid:</strong>
-  <%= @user.uid %>
-</p>
-
-<p>
-  <strong>Provider:</strong>
-  <%= @user.provider %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p> <%= link_to "Log Out", signout_path, method: :delete %> </p>
+<h3> <%= link_to "Create a new Sphere", new_user_sphere_path(@user) %> </h3>

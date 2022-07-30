@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+   # post '/auth/facebook/callback' => 'sessions#omniauthcreate'
+   match '/auth/github/callback' => 'sessions#omniauthcreate', via: [:get, :post]
+   # match '/auth/facebook/callback', to: 'sessions#omniauthcreate', via: [:get, :post]
   root 'sessions#new'
   resources :sessions
   resources :spheres_goals

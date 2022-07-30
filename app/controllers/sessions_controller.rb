@@ -14,7 +14,21 @@ class SessionsController < ApplicationController
                  render :new
             end 
     end
-
+    def omniauthcreate
+       
+        user = User.find_or_create_by(uid: auth['uid']) do |u|
+          u.name = auth['info']['name']
+          u.email = auth['info']['email']
+          u.password = u.password_confirmation = SecureRandom.base58(24)
+          u.provider = auth['provider']
+          
+        end
+        # raise request.env['omniauth.auth']
+        session[:user_id] = user.id
+        # raise params.inspect
+        redirect_to user_path(user)
+        
+      end
 
     def show
         if User.find_by(username: params[:name]) 
@@ -28,6 +42,11 @@ class SessionsController < ApplicationController
         
         redirect_to '/'
       end
+      private 
+      def auth
+        request.env['omniauth.auth']
+      end
 
+      
       
 end

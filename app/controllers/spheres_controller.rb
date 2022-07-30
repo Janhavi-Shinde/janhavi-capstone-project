@@ -1,70 +1,76 @@
 class SpheresController < ApplicationController
-  before_action :set_sphere, only: %i[ show edit update destroy ]
-
-  # GET /spheres or /spheres.json
-  def index
-    @spheres = Sphere.all
-  end
-
-  # GET /spheres/1 or /spheres/1.json
-  def show
-  end
-
-  # GET /spheres/new
+  before_action :require_logged_in
   def new
-    @sphere = Sphere.new
+      
+      user = User.find(params[:user_id])
+     
+      if user && user == current_user
+
+          @sphere = user.spheres.build
+          
+      else 
+          redirect_to '/'
+          # render to error page
+          # render "no user exists"
+      end
   end
 
-  # GET /spheres/1/edit
+  def index
+
+  end
+
   def edit
-  end
-
-  # POST /spheres or /spheres.json
-  def create
-    @sphere = Sphere.new(sphere_params)
-
-    respond_to do |format|
-      if @sphere.save
-        format.html { redirect_to sphere_url(@sphere), notice: "Sphere was successfully created." }
-        format.json { render :show, status: :created, location: @sphere }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @sphere.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /spheres/1 or /spheres/1.json
-  def update
-    respond_to do |format|
-      if @sphere.update(sphere_params)
-        format.html { redirect_to sphere_url(@sphere), notice: "Sphere was successfully updated." }
-        format.json { render :show, status: :ok, location: @sphere }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @sphere.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /spheres/1 or /spheres/1.json
-  def destroy
-    @sphere.destroy
-
-    respond_to do |format|
-      format.html { redirect_to spheres_url, notice: "Sphere was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sphere
       @sphere = Sphere.find(params[:id])
-    end
+  end
 
-    # Only allow a list of trusted parameters through.
-    def sphere_params
-      params.require(:sphere).permit(:title, :user_id, :goal_aim, :aim_achieved)
-    end
+  def update
+  
+      @sphere = Sphere.find(params[:id])
+      if @sphere.update(sphere_params)
+      redirect_to user_path(@sphere.user_id)
+      else 
+          render :edit
+      end
+  end
+
+  def create
+      @sphere = Sphere.new(sphere_params)
+     if @sphere.valid?
+      @sphere.save       
+       redirect_to @sphere
+     else 
+      render :new
+
+     end
+          
+
+  end
+
+  
+  def show
+      sphere = Sphere.find(params[:id])
+      @user = current_user.id
+      if sphere.user_id == current_user.id
+          @sphere = sphere
+      else
+          # redirect_to user_path(current_user.id)
+          nil 
+          # won't let me redirect for some reason
+      end
+     
+  end
+
+  def destroy
+      @sphere = Sphere.find(params[:id])
+      @sphere.destroy
+      user = @sphere.user_id
+      # flash[:notice] = "Sphere deleted."
+      redirect_to user_path(user)
+      
+  end
+  private
+
+  def sphere_params
+      params.require(:sphere).permit(:title, :user_id)
+  end
 end

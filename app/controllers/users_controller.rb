@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_logged_in
-  skip_before_action :require_logged_in, only: [:create, :new]
+  # before_action :require_logged_in
+  # skip_before_action :require_logged_in, only: [:create, :new]
 
   def index
     users = User.all
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
       # if current_user.id.to_s == params[:id]
       
-      @user = User.find(current_user.id.to_s)
+      @user = User.find(params[:id])
       
       # raise current_user.inspect
       # else 
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   def create
       @user = User.new(user_params)
       @user.save!
-      session[:user_id] = @user.id
+      # session[:user_id] = @user.id
       redirect_to user_path(@user)
   end
    private

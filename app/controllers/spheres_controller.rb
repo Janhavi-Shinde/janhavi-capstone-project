@@ -1,10 +1,11 @@
 class SpheresController < ApplicationController
-  before_action :require_logged_in
+  # before_action :require_logged_in
   def new
       
       user = User.find(params[:user_id])
      
-      if user && user == current_user
+      if user
+        #&& user == current_user
 
           @sphere = user.spheres.build
           
@@ -49,12 +50,13 @@ class SpheresController < ApplicationController
   
   def show
       sphere = Sphere.find(params[:id])
-      @user = current_user.id
-      if sphere.user_id == current_user.id
+      # @user = current_user.id
+      if sphere
           @sphere = sphere
       else
           # redirect_to user_path(current_user.id)
-          nil 
+           
+          render text: "No such sphere exists"
           # won't let me redirect for some reason
       end
      

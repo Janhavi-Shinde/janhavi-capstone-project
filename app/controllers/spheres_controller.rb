@@ -53,7 +53,7 @@ class SpheresController < ApplicationController
   def show
       sphere = Sphere.find(params[:id])
       options = {
-    include: [:user]
+    include: [:user, :goals]
   }
     #   # @user = current_user.id
     #   if sphere

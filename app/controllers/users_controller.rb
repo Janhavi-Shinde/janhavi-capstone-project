@@ -21,6 +21,7 @@ class UsersController < ApplicationController
       # if current_user.id.to_s == params[:id]
       
       @user = User.find(params[:id])
+      render json: UserSerializer.new(@user)
       
       # raise current_user.inspect
       # else 

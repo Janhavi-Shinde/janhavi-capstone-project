@@ -42,10 +42,20 @@ class GoalsController < ApplicationController
   end
 
   def show
-      @goal = Goal.find(params[:id])
-      
+      goal = Goal.find(params[:id])
+      options = {
+    include: [:spheres]
+  }
+      render json: GoalSerializer.new(goal, options)
 
   end
+  def index
+    goals = Goal.all
+    options = {
+    include: [:spheres]
+  }
+    render json: GoalSerializer.new(goals, options)
+end
   private
   def goals_params
       params.require(:goal).permit(:title, :description, sphere_ids:[])

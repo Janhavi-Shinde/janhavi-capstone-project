@@ -3,11 +3,13 @@ class UsersController < ApplicationController
   skip_before_action :require_logged_in, only: [:create, :new]
 
   def index
-
+    users = User.all
+    render json: UserSerializer.new(users)
   end
 
   def new
       @user = User.new
+
   end
 
   

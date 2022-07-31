@@ -17,6 +17,8 @@ class SpheresController < ApplicationController
   end
 
   def index
+    spheres = Sphere.all
+    render json: SphereSerializer.new(spheres)
 
   end
 
@@ -50,15 +52,20 @@ class SpheresController < ApplicationController
   
   def show
       sphere = Sphere.find(params[:id])
-      # @user = current_user.id
-      if sphere
-          @sphere = sphere
-      else
-          # redirect_to user_path(current_user.id)
+      options = {
+    include: [:user]
+  }
+    #   # @user = current_user.id
+    #   if sphere
+    #       @sphere = sphere
+    #   else
+    #       # redirect_to user_path(current_user.id)
            
-          render text: "No such sphere exists"
-          # won't let me redirect for some reason
-      end
+    #       render text: "No such sphere exists"
+    #       # won't let me redirect for some reason
+    #   end
+
+    render json: SphereSerializer.new(sphere, options)
      
   end
 
